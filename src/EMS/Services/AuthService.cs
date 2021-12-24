@@ -25,7 +25,7 @@ public class AuthService
             issuer: _jwtConfiguration.Issuer,
             audience: _jwtConfiguration.Audience,
             notBefore: now,
-            expires: now.Add(TimeSpan.FromMinutes(_jwtConfiguration.ExpiresMinutes)),
+            expires: now.Add(TimeSpan.FromMinutes(_jwtConfiguration.ExpiresInMinutes)),
             signingCredentials: new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtConfiguration.SecurityKey)),
                 SecurityAlgorithms.HmacSha256)
@@ -33,9 +33,6 @@ public class AuthService
         
         var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
         
-        return new
-        {
-            accessToken = encodedJwt
-        };
+        return new { accessToken = encodedJwt };
     }
 }

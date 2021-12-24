@@ -6,7 +6,7 @@ public class JwtBearerConfiguration
     
     public string Audience { get; set; }
 
-    public int ExpiresMinutes { get; set; }
+    public int ExpiresInMinutes { get; set; }
     
     public string SecurityKey { get; set; }
 }
