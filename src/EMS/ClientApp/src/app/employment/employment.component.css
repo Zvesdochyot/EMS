@@ -1,0 +1,37 @@
+.employment-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 4em auto;
+}
+
+.employment-page mat-card {
+  max-width: 93%;
+}
+
+.employment-form, .position-form {
+  flex: 1 1 0;
+  margin: 0 2em;
+}
+
+.employment-table {
+  flex: 100%;
+  order: 3;
+  margin: 2em 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.topright {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.bottomright {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+}
