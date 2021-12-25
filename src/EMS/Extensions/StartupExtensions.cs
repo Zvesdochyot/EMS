@@ -3,7 +3,6 @@ using EMS.Configurations;
 using EMS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,11 +27,6 @@ public static class StartupExtensions
         services.AddTransient<AuthService>();
         services.AddSingleton<EmployeeService>();
         services.AddSingleton<PositionService>();
-        
-        services.AddSpaStaticFiles(options =>
-        {
-            options.RootPath = "ClientApp/dist";
-        });
     }
 
     public static void ConfigureApplication(this IApplicationBuilder app, IWebHostEnvironment env)
@@ -46,12 +40,6 @@ public static class StartupExtensions
             app.UseExceptionHandler("/Error");
         }
         
-        app.UseStaticFiles();
-        if (!env.IsDevelopment())
-        {
-            app.UseSpaStaticFiles();
-        }
-        
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
@@ -59,16 +47,6 @@ public static class StartupExtensions
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
-        });
-
-        app.UseSpa(spa =>
-        {
-            spa.Options.SourcePath = "ClientApp";
-
-            if (env.IsDevelopment())
-            {
-                spa.UseAngularCliServer("start");
-            }
         });
     }
 }

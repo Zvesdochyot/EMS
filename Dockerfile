@@ -4,6 +4,8 @@ COPY *.sln .
 COPY src/ src/
 
 WORKDIR /source/src/EMS
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
 RUN dotnet publish --configuration Release --output /build
 
 # final stage/image
