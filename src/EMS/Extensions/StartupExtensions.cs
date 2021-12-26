@@ -35,10 +35,8 @@ public static class StartupExtensions
         {
             app.UseDeveloperExceptionPage();
         }
-        else
-        {
-            app.UseExceptionHandler("/Error");
-        }
+        
+        app.UseStatusCodePages();
         
         app.UseRouting();
         app.UseAuthentication();

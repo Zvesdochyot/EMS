@@ -1,4 +1,5 @@
-﻿using EMS.Services;
+﻿using System;
+using EMS.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,15 +31,15 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Employee>>> GetEmployees() => await _employeeService.GetAllAsync();
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Employee>> GetEmployee(string id)
+    [HttpGet("{id:length(24):guid}")]
+    public async Task<ActionResult<Employee>> GetEmployee(Guid id)
     {
         var employee = await _employeeService.GetByIdAsync(id);
         return employee != null ? employee : NotFound();
     }
 
-    [HttpPut("{id:length(24)}")]
-    public async Task<IActionResult> UpdateEmployee(string id, Employee updated)
+    [HttpPut("{id:length(24):guid}")]
+    public async Task<IActionResult> UpdateEmployee(Guid id, Employee updated)
     {
         var employee = await _employeeService.GetByIdAsync(id);
 
@@ -51,8 +52,8 @@ public class EmployeeController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:length(24)}")]
-    public async Task<IActionResult> DeleteEmployee(string id)
+    [HttpDelete("{id:length(24):guid}")]
+    public async Task<IActionResult> DeleteEmployee(Guid id)
     {
         var employee = await _employeeService.GetByIdAsync(id);
 

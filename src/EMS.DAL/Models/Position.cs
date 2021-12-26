@@ -1,15 +1,14 @@
-using MongoDB.Bson;
+using EMS.DAL.Attributes;
+using EMS.DAL.Models.Abstractions;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace EMS.DAL.Models;
 
-public class Position
+[CollectionName("Positions")]
+public class Position : EntityBase
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-
+    [BsonRequired]
     public string Title { get; set; }
-
+    
     public string Description { get; set; }
 }

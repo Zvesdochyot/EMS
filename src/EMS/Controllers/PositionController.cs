@@ -1,3 +1,4 @@
+using System;
 using EMS.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -30,8 +31,8 @@ public class PositionController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Position>>> GetPositions() => await _positionService.GetAllAsync();
 
-    [HttpGet("{id:length(24)}")]
-    public async Task<ActionResult<Position>> GetPosition(string id)
+    [HttpGet("{id:length(24):guid}")]
+    public async Task<ActionResult<Position>> GetPosition(Guid id)
     {
         var position = await _positionService.GetByIdAsync(id);
         return position != null ? position : NotFound();

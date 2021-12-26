@@ -1,9 +1,9 @@
-using EMS.Configurations;
+using System;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EMS.DAL.Contexts.Interfaces;
 using EMS.DAL.Models;
-using Microsoft.Extensions.Options;
 
 namespace EMS.Services;
 
@@ -11,11 +11,9 @@ public class EmployeeService
 {
     private readonly IMongoCollection<Employee> _employees;
 
-    public EmployeeService(IOptions<GeneralConfiguration> configuration)
+    public EmployeeService(IMongoContext context)
     {
-        var client = new MongoClient(configuration.Value.DatabaseConfiguration.ConnectionString);
-        var database = client.GetDatabase(configuration.Value.DatabaseConfiguration.DatabaseName);
-        _employees = database.GetCollection<Employee>("Employees");
+        _employees = context.GetEntityCollection<Employee>();
     }
 
     public async Task<List<Employee>> GetAllAsync()
@@ -24,7 +22,7 @@ public class EmployeeService
         return await queryResult.ToListAsync();
     }
 
-    public async Task<Employee?> GetByIdAsync(string id)
+    public async Task<Employee?> GetByIdAsync(Guid id)
     {
         var queryResult = await _employees.FindAsync(employee => employee.Id == id);
         return await queryResult.SingleOrDefaultAsync();
@@ -35,12 +33,12 @@ public class EmployeeService
         return _employees.InsertOneAsync(employee);
     }
 
-    public Task UpdateAsync(string id, Employee updatedEmployee)
+    public Task UpdateAsync(Guid id, Employee updatedEmployee)
     {
         return _employees.ReplaceOneAsync(employee => employee.Id == id, updatedEmployee);
     }
     
-    public Task RemoveByIdAsync(string id)
+    public Task RemoveByIdAsync(Guid id)
     {
         return _employees.DeleteOneAsync(employee => employee.Id == id);
     }

@@ -1,26 +1,30 @@
-﻿using MongoDB.Bson;
+﻿using EMS.DAL.Attributes;
+using EMS.DAL.Models.Abstractions;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace EMS.DAL.Models;
 
-public class Employee
+[CollectionName("Employees")]
+public class Employee : EntityBase
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; }
-
+    [BsonRequired]
     public string FirstName { get; set; }
 
+    [BsonRequired]
     public string LastName { get; set; }
 
+    [BsonRequired]
     public string Position { get; set; }
 
-    public long Salary { get; set; }
+    [BsonRequired]
+    public double Salary { get; set; }
 
+    [BsonRequired]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
-    public DateTime Hired { get; set; }
+    public DateTime HiredOn { get; set; }
 
     [BsonDefaultValue(null)]
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc, Representation = BsonType.DateTime)]
-    public DateTime? Fired { get; set; }
+    public DateTime? FiredOn { get; set; }
 }

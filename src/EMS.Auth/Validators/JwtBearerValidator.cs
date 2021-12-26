@@ -28,7 +28,7 @@ public class JwtBearerValidator : JwtSecurityTokenHandler
         validationParameters.ValidIssuer = _jwtConfiguration.Issuer;
         validationParameters.ValidAudience = _jwtConfiguration.Audience;
         validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtConfiguration.SecurityKey));
-        
+
         try
         {
             return base.ValidateToken(token, validationParameters, out validatedToken);

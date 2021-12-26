@@ -20,7 +20,7 @@ public class AuthService
     public dynamic GetJwt()
     {
         var now = DateTime.UtcNow;
-
+        
         var jwt = new JwtSecurityToken(
             issuer: _jwtConfiguration.Issuer,
             audience: _jwtConfiguration.Audience,
